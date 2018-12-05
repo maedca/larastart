@@ -18,5 +18,8 @@
         "popper.js": "^1.12",
         "vue": "^2.5.17",
         "cross-env": "^5.1"
+    },
+    "dependencies": {
+        "admin-lte": "^3.0.0-alpha.2"
     }
 }
