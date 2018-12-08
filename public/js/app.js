@@ -51381,6 +51381,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -51441,21 +51442,21 @@ var render = function() {
             _c("div", { staticClass: "modal-content" }, [
               _vm._m(1),
               _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c(
-                  "form",
-                  {
-                    on: {
-                      submit: function($event) {
-                        $event.preventDefault()
-                        return _vm.createUser($event)
-                      },
-                      keydown: function($event) {
-                        _vm.form.onKeydown($event)
-                      }
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.createUser($event)
+                    },
+                    keydown: function($event) {
+                      _vm.form.onKeydown($event)
                     }
-                  },
-                  [
+                  }
+                },
+                [
+                  _c("div", { staticClass: "modal-body" }, [
                     _c(
                       "div",
                       { staticClass: "form-group" },
@@ -51569,13 +51570,13 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.form.bio,
-                              expression: "form.bio"
+                              value: _vm.form.type,
+                              expression: "form.type"
                             }
                           ],
                           staticClass: "form-control",
                           class: { "is-invalid": _vm.form.errors.has("type") },
-                          attrs: { type: "select", name: "type" },
+                          attrs: { type: "type", name: "type" },
                           on: {
                             change: function($event) {
                               var $$selectedVal = Array.prototype.filter
@@ -51588,7 +51589,7 @@ var render = function() {
                                 })
                               _vm.$set(
                                 _vm.form,
-                                "bio",
+                                "type",
                                 $event.target.multiple
                                   ? $$selectedVal
                                   : $$selectedVal[0]
@@ -51659,21 +51660,12 @@ var render = function() {
                         })
                       ],
                       1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { disabled: _vm.form.busy, type: "submit" }
-                      },
-                      [_vm._v("Log In")]
                     )
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _vm._m(2)
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(2)
+                ]
+              )
             ])
           ]
         )
@@ -51791,7 +51783,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c(
         "button",
-        { staticClass: "btn btn-primary", attrs: { type: "button" } },
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
         [_vm._v("Create")]
       )
     ])

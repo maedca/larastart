@@ -57,8 +57,9 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    <form @submit.prevent="createUser" @keydown="form.onKeydown($event)">
                     <div class="modal-body">
-                        <form @submit.prevent="createUser" @keydown="form.onKeydown($event)">
+
                             <div class="form-group">
                                 <input v-model="form.name" type="text" name="name" placeholder="Name"
                                        class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
@@ -73,14 +74,13 @@
                             </div>
 
                             <div class="form-group">
-
                                 <textarea v-model="form.bio" type="textarea" name="bio"
                                           class="form-control" :class="{ 'is-invalid': form.errors.has('bio') }">
                                     <has-error :form="form" field="bio"></has-error></textarea>
                             </div>
                             <div class="form-group">
 
-                                <select v-model="form.bio" type="select" name="type"
+                                <select v-model="form.type" type="type" name="type"
                                         class="form-control" :class="{ 'is-invalid': form.errors.has('type') }">
                                     <option value="">Select role User</option>
                                     <option value="admin">Admin</option>
@@ -95,13 +95,14 @@
                                        class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
                                 <has-error :form="form" field="password"></has-error>
                             </div>
-                            <button :disabled="form.busy" type="submit" class="btn btn-primary">Log In</button>
-                        </form>
+
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Create</button>
+                        <button type="submit" class="btn btn-primary">Create</button>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
