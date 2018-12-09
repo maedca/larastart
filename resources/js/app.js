@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -9,7 +8,9 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 import VueRouter from 'vue-router'
-import { Form, HasError, AlertError } from 'vform'
+import {Form, HasError, AlertError} from 'vform'
+import moment from 'moment';
+
 window.Form = Form;
 Vue.use(VueRouter);
 
@@ -17,14 +18,22 @@ Vue.component(HasError.name, HasError);
 Vue.component(AlertError.name, AlertError);
 
 let routes = [
-    { path: '/dashboard', component: require('./components/Dashboard.vue') },
-    { path: '/profile', component: require('./components/Profile.vue') },
-    { path: '/users', component: require('./components/Users.vue') }
+    {path: '/dashboard', component: require('./components/Dashboard.vue')},
+    {path: '/profile', component: require('./components/Profile.vue')},
+    {path: '/users', component: require('./components/Users.vue')}
 ]
 const router = new VueRouter({
     mode: 'history',
     routes // short for `routes: routes`
 })
+
+Vue.filter('upText', function (text) {
+    // return text.toUpperCase()
+    return text.charAt(0).toUpperCase() + text.slice(1)
+});
+Vue.filter('myDate', function (created) {
+    return moment(created).format('MMMM Do YYYY, h:mm:ss a')
+});
 
 /**
  * The following block of code may be used to automatically register your
