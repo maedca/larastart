@@ -10,6 +10,9 @@ window.Vue = require('vue');
 import VueRouter from 'vue-router'
 import {Form, HasError, AlertError} from 'vform'
 import moment from 'moment';
+import VueProgressBar from 'vue-progressbar';
+import Swal from 'sweetalert2';
+window.Swal = Swal;
 
 window.Form = Form;
 Vue.use(VueRouter);
@@ -34,7 +37,19 @@ Vue.filter('upText', function (text) {
 Vue.filter('myDate', function (created) {
     return moment(created).format('MMMM Do YYYY, h:mm:ss a')
 });
+Vue.use(VueProgressBar, {
+    color: 'rgb(143, 255, 199)',
+    failedColor: 'red',
+    height: '3px'
+});
 
+const toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000
+});
+window.toast = toast;
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
