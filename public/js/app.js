@@ -30457,6 +30457,9 @@ window.Swal = __WEBPACK_IMPORTED_MODULE_4_sweetalert2___default.a;
 window.Form = __WEBPACK_IMPORTED_MODULE_1_vform__["Form"];
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 
+window.Fire = new Vue(); //create custom vue event
+
+
 Vue.component(__WEBPACK_IMPORTED_MODULE_1_vform__["HasError"].name, __WEBPACK_IMPORTED_MODULE_1_vform__["HasError"]);
 Vue.component(__WEBPACK_IMPORTED_MODULE_1_vform__["AlertError"].name, __WEBPACK_IMPORTED_MODULE_1_vform__["AlertError"]);
 
@@ -70729,6 +70732,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         createUser: function createUser() {
             this.$Progress.start();
             this.form.post('api/user');
+            Fire.$emit('AfterCreate');
             toast({
                 type: 'success',
                 title: 'Signed in successfully'
@@ -70741,9 +70745,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this2 = this;
 
         this.loadUsers();
-        setInterval(function () {
-            return _this2.loadUsers();
-        }, 3000);
+        // setInterval(()=>this.loadUsers(), 3000)
+        Fire.$on('AfterCreate', function () {
+            _this2.loadUsers();
+        });
     }
 });
 

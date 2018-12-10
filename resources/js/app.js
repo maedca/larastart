@@ -17,6 +17,10 @@ window.Swal = Swal;
 window.Form = Form;
 Vue.use(VueRouter);
 
+
+window.Fire = new Vue();//create custom vue event
+
+
 Vue.component(HasError.name, HasError);
 Vue.component(AlertError.name, AlertError);
 
