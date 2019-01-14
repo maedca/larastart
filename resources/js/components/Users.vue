@@ -15,7 +15,7 @@
                             <!--<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>-->
                             <!--</div>-->
                             <!--</div>-->
-                            <button class="btn btn-success " data-toggle="modal" data-target="#addNew">Add New <i
+                            <button class="btn btn-success " @click="newModal">Add New <i
                                     class="fas fa-user-plus"></i></button>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                                 <td>{{user.type | upText }}</td>
                                 <td>{{user.created_at | myDate}}</td>
 
-                                <td><a href=""><i class="fas fa-user-edit blue"></i></a>
+                                <td><a href="#" @click="editModal(user)"><i class="fas fa-user-edit blue"></i></a>
                                     | <a href="#" @click="deleteUser(user.id)"><i class="fas fa-user-times red"></i></a>
                                 </td>
                             </tr>
@@ -130,6 +130,15 @@
             }
         },
         methods: {
+            newModal(){
+                this.form.reset();
+                $("#addNew").modal('show');
+            },
+            editModal(user){
+                this.form.reset();
+                $("#addNew").modal('show');
+                this.form.fill(user);
+            },
             deleteUser(id) {
                 Swal({
                     title: 'Are you sure?',
