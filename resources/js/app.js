@@ -44,7 +44,7 @@ Vue.filter('myDate', function (created) {
 Vue.use(VueProgressBar, {
     color: 'rgb(143, 255, 199)',
     failedColor: 'red',
-    height: '3px'
+    height: '20px'
 });
 
 const toast = Swal.mixin({

@@ -38,8 +38,9 @@
                                 <td>{{user.type | upText }}</td>
                                 <td>{{user.created_at | myDate}}</td>
 
-                                <td><a href=""><i class="fas fa-user-edit blue"></i></a> | <a href=""><i
-                                        class="fas fa-user-times red"></i></a></td>
+                                <td><a href=""><i class="fas fa-user-edit blue"></i></a>
+                                    | <a href="#" @click="deleteUser(user.id)"><i class="fas fa-user-times red"></i></a>
+                                </td>
                             </tr>
 
                             </tbody>
@@ -116,7 +117,7 @@
     export default {
         data() {
             return {
-                users:{},
+                users: {},
                 form: new Form({
                     name: '',
                     email: '',
@@ -129,19 +130,52 @@
             }
         },
         methods: {
+            deleteUser(id) {
+                Swal({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    //send request to the server
+                    //vform paquete esto lo hace ese apquete ver doc en github
+                    if(result.value){
+                        this.form.delete('api/user/' + id).then(() => {
+
+                            Swal(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                            Fire.$emit('AfterCreate');
+                        }).catch(() => {
+                            Swal("Failed!", "There was something  wronge", "warning");
+                        });
+
+                    }
+
+                })
+            },
             loadUsers() {
-                axios.get('api/user').then(({data})=>(this.users = data.data))
+                axios.get('api/user').then(({data}) => (this.users = data.data));
             },
             createUser() {
                 this.$Progress.start()
-                this.form.post('api/user')
-                Fire.$emit('AfterCreate')
-                toast({
-                    type: 'success',
-                    title: 'Signed in successfully'
+                this.form.post('api/user').then(() => {
+                    Fire.$emit('AfterCreate');
+                    toast({
+                        type: 'success',
+                        title: 'Signed in successfully'
+                    })
+                    $("#addNew").modal('hide');
+                    this.$Progress.finish();
+                }).catch(() => {
+
                 })
-                $("#addNew").modal('hide')
-                this.$Progress.finish()
+
             }
         },
         created() {
@@ -149,7 +183,7 @@
             // setInterval(()=>this.loadUsers(), 3000)
             Fire.$on('AfterCreate', () => {
                 this.loadUsers();
-                this.loadUsers();
+                // this.loadUsers();
 
             })
         }
