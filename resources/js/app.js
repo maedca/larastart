@@ -12,6 +12,7 @@ import {Form, HasError, AlertError} from 'vform'
 import moment from 'moment';
 import VueProgressBar from 'vue-progressbar';
 import Swal from 'sweetalert2';
+
 window.Swal = Swal;
 
 window.Form = Form;
@@ -27,7 +28,8 @@ Vue.component(AlertError.name, AlertError);
 let routes = [
     {path: '/dashboard', component: require('./components/Dashboard.vue')},
     {path: '/profile', component: require('./components/Profile.vue')},
-    {path: '/users', component: require('./components/Users.vue')}
+    {path: '/users', component: require('./components/Users.vue')},
+    {path: '/developer', component: require('./components/Developer.vue')},
 ]
 const router = new VueRouter({
     mode: 'history',
@@ -63,7 +65,20 @@ window.toast = toast;
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component(
+    'passport-clients',
+    require('./components/passport/Clients.vue')
+);
 
+Vue.component(
+    'passport-authorized-clients',
+    require('./components/passport/AuthorizedClients.vue')
+);
+
+Vue.component(
+    'passport-personal-access-tokens',
+    require('./components/passport/PersonalAccessTokens.vue')
+);
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)))
 
