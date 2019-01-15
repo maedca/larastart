@@ -70713,6 +70713,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             editmode: false,
             users: {},
             form: new Form({
+                id: '',
                 name: '',
                 email: '',
                 password: '',
@@ -70726,7 +70727,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         updateUser: function updateUser() {
-            console.log('update funcion');
+            var _this = this;
+
+            // console.log('update funcion')
+            this.$Progress.start();
+            this.form.put('api/user/' + this.form.id).then(function () {
+                //success
+                $("#addNew").modal('hide');
+                // Swal(
+                //     'Updated!',
+                //     'Your User info has been updated.',
+                //     'success'
+                // )
+                toast({
+                    type: 'success',
+                    title: 'User info Updated Correctly'
+                });
+                _this.$Progress.finish();
+                Fire.$emit('AfterCreate');
+            }).catch(function () {
+                //errros
+                _this.$Progress.fail();
+            });
+            this.$Progress.finish();
         },
         newModal: function newModal() {
             this.editmode = false;
@@ -70740,7 +70763,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.form.fill(user);
         },
         deleteUser: function deleteUser(id) {
-            var _this = this;
+            var _this2 = this;
 
             Swal({
                 title: 'Are you sure?',
@@ -70754,7 +70777,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 //send request to the server
                 //vform paquete esto lo hace ese apquete ver doc en github
                 if (result.value) {
-                    _this.form.delete('api/user/' + id).then(function () {
+                    _this2.form.delete('api/user/' + id).then(function () {
 
                         Swal('Deleted!', 'Your file has been deleted.', 'success');
                         Fire.$emit('AfterCreate');
@@ -70765,15 +70788,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         loadUsers: function loadUsers() {
-            var _this2 = this;
+            var _this3 = this;
 
             axios.get('api/user').then(function (_ref) {
                 var data = _ref.data;
-                return _this2.users = data.data;
+                return _this3.users = data.data;
             });
         },
         createUser: function createUser() {
-            var _this3 = this;
+            var _this4 = this;
 
             this.$Progress.start();
             this.form.post('api/user').then(function () {
@@ -70783,17 +70806,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     title: 'Signed in successfully'
                 });
                 $("#addNew").modal('hide');
-                _this3.$Progress.finish();
+                _this4.$Progress.finish();
             }).catch(function () {});
         }
     },
     created: function created() {
-        var _this4 = this;
+        var _this5 = this;
 
         this.loadUsers();
         // setInterval(()=>this.loadUsers(), 3000)
         Fire.$on('AfterCreate', function () {
-            _this4.loadUsers();
+            _this5.loadUsers();
             // this.loadUsers();
         });
     }

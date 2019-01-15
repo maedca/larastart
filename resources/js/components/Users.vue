@@ -56,7 +56,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5  v-show="editmode" class="modal-title" id="addNewLabel">Edit User</h5>
+                        <h5 v-show="editmode" class="modal-title" id="addNewLabel">Edit User</h5>
                         <h5 v-show="!editmode" class="modal-title" id="addNewLabel">Add New</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -105,7 +105,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button  v-show="editmode" type="submit" class="btn btn-success">Update</button>
+                            <button v-show="editmode" type="submit" class="btn btn-success">Update</button>
                             <button v-show="!editmode" type="submit" class="btn btn-primary">Create</button>
                         </div>
                     </form>
@@ -119,9 +119,10 @@
     export default {
         data() {
             return {
-                editmode:false,
+                editmode: false,
                 users: {},
                 form: new Form({
+                    id:'',
                     name: '',
                     email: '',
                     password: '',
@@ -133,15 +134,35 @@
             }
         },
         methods: {
-            updateUser(){
-                console.log('update funcion')
+            updateUser() {
+                // console.log('update funcion')
+                this.$Progress.start()
+                this.form.put('api/user/' + this.form.id).then(() => {
+                    //success
+                    $("#addNew").modal('hide');
+                    // Swal(
+                    //     'Updated!',
+                    //     'Your User info has been updated.',
+                    //     'success'
+                    // )
+                    toast({
+                        type: 'success',
+                        title: 'User info Updated Correctly'
+                    })
+                    this.$Progress.finish();
+                    Fire.$emit('AfterCreate');
+                }).catch(() => {
+                    //errros
+                    this.$Progress.fail()
+                });
+                this.$Progress.finish()
             },
-            newModal(){
+            newModal() {
                 this.editmode = false;
                 this.form.reset();
                 $("#addNew").modal('show');
             },
-            editModal(user){
+            editModal(user) {
                 this.editmode = true;
                 this.form.reset();
                 $("#addNew").modal('show');
@@ -159,7 +180,7 @@
                 }).then((result) => {
                     //send request to the server
                     //vform paquete esto lo hace ese apquete ver doc en github
-                    if(result.value){
+                    if (result.value) {
                         this.form.delete('api/user/' + id).then(() => {
 
                             Swal(
