@@ -283,7 +283,7 @@
                 let file = e.target.files[0];
                 // console.log(file);
                 let reader = new FileReader();
-                reader.onloadend = function () {
+                reader.onloadend =  (e) => {//es6 version
                     // console.log('RESULT', reader.result)
                 };
               console.log(reader.readAsDataURL(file));

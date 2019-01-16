@@ -71149,7 +71149,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var file = e.target.files[0];
             // console.log(file);
             var reader = new FileReader();
-            reader.onloadend = function () {
+            reader.onloadend = function (e) {//es6 version
                 // console.log('RESULT', reader.result)
             };
             console.log(reader.readAsDataURL(file));
