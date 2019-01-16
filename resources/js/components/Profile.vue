@@ -205,7 +205,8 @@
                                         <label for="inputEmail" class="col-sm-2 control-label">Email</label>
 
                                         <div class="col-sm-10">
-                                            <input v-model="form.email" type="email" class="form-control" id="inputEmail"
+                                            <input v-model="form.email" type="email" class="form-control"
+                                                   id="inputEmail"
                                                    placeholder="Email">
                                         </div>
                                     </div>
@@ -219,11 +220,16 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputSkills" class="col-sm-2 control-label">Skills</label>
-
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputSkills"
-                                                   placeholder="Skills">
+                                        <label for="photo" class="col-sm-2 control-label">Profile Photo</label>
+                                        <div class="col-sm-12">
+                                            <input type="file" name="photo" class="form-input" @change="updateProfile">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password" class="col-sm-12 control-label"> password </label>
+                                        <div class="col-sm-12">
+                                            <input type="password" class="form-control" id="password"
+                                                   placeholder="password">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -271,6 +277,19 @@
         mounted() {
             console.log('Component mounted.')
         },
+        methods: {
+            updateProfile(e) { //parametro cualquier cosa quw haga referencia el evento
+                // console.log('uploading');
+                let file = e.target.files[0];
+                // console.log(file);
+                let reader = new FileReader();
+                reader.onloadend = function () {
+                    // console.log('RESULT', reader.result)
+                };
+              console.log(reader.readAsDataURL(file));
+            },
+        },
+
         created() {
             axios.get("api/profile").then(({data}) => (this.form.fill(data)));
         }

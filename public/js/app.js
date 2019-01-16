@@ -71117,6 +71117,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -71135,6 +71141,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         console.log('Component mounted.');
     },
+
+    methods: {
+        updateProfile: function updateProfile(e) {
+            //parametro cualquier cosa quw haga referencia el evento
+            // console.log('uploading');
+            var file = e.target.files[0];
+            // console.log(file);
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                // console.log('RESULT', reader.result)
+            };
+            console.log(reader.readAsDataURL(file));
+        }
+    },
+
     created: function created() {
         var _this = this;
 
@@ -71285,6 +71306,25 @@ var render = function() {
                               _vm.$set(_vm.form, "bio", $event.target.value)
                             }
                           }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-sm-2 control-label",
+                          attrs: { for: "photo" }
+                        },
+                        [_vm._v("Profile Photo")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-12" }, [
+                        _c("input", {
+                          staticClass: "form-input",
+                          attrs: { type: "file", name: "photo" },
+                          on: { change: _vm.updateProfile }
                         })
                       ])
                     ]),
@@ -71621,17 +71661,14 @@ var staticRenderFns = [
     return _c("div", { staticClass: "form-group" }, [
       _c(
         "label",
-        {
-          staticClass: "col-sm-2 control-label",
-          attrs: { for: "inputSkills" }
-        },
-        [_vm._v("Skills")]
+        { staticClass: "col-sm-12 control-label", attrs: { for: "password" } },
+        [_vm._v(" password ")]
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "col-sm-10" }, [
+      _c("div", { staticClass: "col-sm-12" }, [
         _c("input", {
           staticClass: "form-control",
-          attrs: { type: "text", id: "inputSkills", placeholder: "Skills" }
+          attrs: { type: "password", id: "password", placeholder: "password" }
         })
       ])
     ])
