@@ -74,13 +74,13 @@
                             <div class="form-group">
 
                                 <input v-model="form.email" type="email" name="email"
-                                       class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
+                                       class="form-control" :class="{ 'is-invalid': form.errors.has('email') }" placeholder="Email">
                                 <has-error :form="form" field="email"></has-error>
                             </div>
 
                             <div class="form-group">
                                 <textarea v-model="form.bio" type="textarea" name="bio"
-                                          class="form-control" :class="{ 'is-invalid': form.errors.has('bio') }">
+                                          class="form-control" :class="{ 'is-invalid': form.errors.has('bio') }" placeholder="Bio">
                                     <has-error :form="form" field="bio"></has-error></textarea>
                             </div>
                             <div class="form-group">
@@ -97,7 +97,7 @@
                             <div class="form-group">
 
                                 <input v-model="form.password" type="password" name="password"
-                                       class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
+                                       class="form-control" :class="{ 'is-invalid': form.errors.has('password') }" placeholder="Password">
                                 <has-error :form="form" field="password"></has-error>
                             </div>
 
