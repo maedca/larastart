@@ -242,7 +242,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-danger">Submit</button>
+                                            <button @click.prevent="updateInfo" type="submit" class="btn btn-danger">Submit</button>
                                         </div>
                                     </div>
                                 </form>
@@ -276,6 +276,10 @@
             console.log('Component mounted.')
         },
         methods: {
+            updateInfo(){
+                this.form.put('api/profile').then(()=>{}).catch(()=>{});
+            },
+
             updateProfile(e) { //parametro cualquier cosa quw haga referencia el evento
                 // console.log('uploading');
                 let file = e.target.files[0];
