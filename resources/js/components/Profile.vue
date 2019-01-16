@@ -197,7 +197,7 @@
                                         <label for="inputName" class="col-sm-2 control-label">Name</label>
 
                                         <div class="col-sm-10">
-                                            <input v-model="form.name" type="email" class="form-control" id="inputName"
+                                            <input v-model="form.name" type="text" class="form-control" id="inputName"
                                                    placeholder="Name">
                                         </div>
                                     </div>
@@ -221,9 +221,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="photo" class="col-sm-2 control-label">Profile Photo</label>
-                                        <div class="col-sm-12">
-                                            <input type="file" name="photo" class="form-input" @change="updateProfile">
-                                        </div>
+                                        <div class="col-sm-12"><input  type="file" name="photo" id="photo" class="form-input" @change="updateProfile"></div>
                                     </div>
                                     <div class="form-group">
                                         <label for="password" class="col-sm-12 control-label"> password </label>
@@ -283,10 +281,11 @@
                 let file = e.target.files[0];
                 // console.log(file);
                 let reader = new FileReader();
-                reader.onloadend =  (e) => {//es6 version
+                reader.onloadend = (file) => {
                     // console.log('RESULT', reader.result)
+                    this.form.photo = reader.result;
                 };
-              console.log(reader.readAsDataURL(file));
+                reader.readAsDataURL(file);
             },
         },
 

@@ -71121,8 +71121,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -71144,24 +71142,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         updateProfile: function updateProfile(e) {
+            var _this = this;
+
             //parametro cualquier cosa quw haga referencia el evento
             // console.log('uploading');
             var file = e.target.files[0];
             // console.log(file);
             var reader = new FileReader();
-            reader.onloadend = function (e) {//es6 version
+            reader.onloadend = function (file) {
                 // console.log('RESULT', reader.result)
+                _this.form.photo = reader.result;
             };
-            console.log(reader.readAsDataURL(file));
+            reader.readAsDataURL(file);
         }
     },
 
     created: function created() {
-        var _this = this;
+        var _this2 = this;
 
         axios.get("api/profile").then(function (_ref) {
             var data = _ref.data;
-            return _this.form.fill(data);
+            return _this2.form.fill(data);
         });
     }
 });
@@ -71216,7 +71217,7 @@ var render = function() {
                           ],
                           staticClass: "form-control",
                           attrs: {
-                            type: "email",
+                            type: "text",
                             id: "inputName",
                             placeholder: "Name"
                           },
@@ -71323,7 +71324,7 @@ var render = function() {
                       _c("div", { staticClass: "col-sm-12" }, [
                         _c("input", {
                           staticClass: "form-input",
-                          attrs: { type: "file", name: "photo" },
+                          attrs: { type: "file", name: "photo", id: "photo" },
                           on: { change: _vm.updateProfile }
                         })
                       ])
