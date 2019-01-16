@@ -221,7 +221,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="photo" class="col-sm-2 control-label">Profile Photo</label>
-                                        <div class="col-sm-12"><input  type="file" name="photo" id="photo" class="form-input" @change="updateProfile"></div>
+                                        <div class="col-sm-12"><input type="file" name="photo" id="photo"
+                                                                      class="form-input" @change="updateProfile"></div>
                                     </div>
                                     <div class="form-group">
                                         <label for="password" class="col-sm-12 control-label"> password </label>
@@ -242,7 +243,9 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button @click.prevent="updateInfo" type="submit" class="btn btn-danger">Submit</button>
+                                            <button @click.prevent="updateInfo" type="submit" class="btn btn-danger">
+                                                Submit
+                                            </button>
                                         </div>
                                     </div>
                                 </form>
@@ -276,8 +279,14 @@
             console.log('Component mounted.')
         },
         methods: {
-            updateInfo(){
-                this.form.put('api/profile').then(()=>{}).catch(()=>{});
+            updateInfo() {
+                this.$Progress.start();
+                this.form.put('api/profile').then(() => {
+
+                    this.$Progress.finish();
+                }).catch(() => {
+                    this.$Progress.fail()
+                });
             },
 
             updateProfile(e) { //parametro cualquier cosa quw haga referencia el evento
@@ -285,11 +294,21 @@
                 let file = e.target.files[0];
                 // console.log(file);
                 let reader = new FileReader();
-                reader.onloadend = (file) => {
-                    // console.log('RESULT', reader.result)
-                    this.form.photo = reader.result;
-                };
-                reader.readAsDataURL(file);
+                if (file['size'] < 2111775) {
+                    reader.onloadend = (file) => {
+                        // console.log('RESULT', reader.result)
+                        this.form.photo = reader.result;
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    Swal({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'you are uploading oversize image'
+                    })
+                }
+
+
             },
         },
 
