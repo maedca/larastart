@@ -227,7 +227,7 @@
                                     <div class="form-group">
                                         <label for="password" class="col-sm-12 control-label"> password </label>
                                         <div class="col-sm-12">
-                                            <input type="password" class="form-control" id="password"
+                                            <input v-model="form.password" type="password" class="form-control" id="password"
                                                    placeholder="password">
                                         </div>
                                     </div>
@@ -284,8 +284,13 @@
                 this.form.put('api/profile').then(() => {
 
                     this.$Progress.finish();
+                    Swal({
+                        type: 'success',
+                        title: 'update...',
+                        text: 'profile has been updated'
+                    })
                 }).catch(() => {
-                    this.$Progress.fail()
+                    this.$Progress.fail();
                 });
             },
 
